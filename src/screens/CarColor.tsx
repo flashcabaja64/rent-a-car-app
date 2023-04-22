@@ -13,13 +13,15 @@ import { Button, RadioButton } from 'react-native-paper';
 import { useCardAnimation } from '@react-navigation/stack';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
-import styles from '../styles/carColor.styles';
+import styles from '../styles/filterModal.styles';
+import { colors } from '../styles/theme';
 
 const CarColor = ({ navigation, carColors }: any) => {
   const { width, height } = useWindowDimensions();
   const { current } = useCardAnimation();
-  const [radioValue, setRadioValue] = useState("")
-
+  const [radioValue, setRadioValue] = useState("");
+  let newColors = ['All Colors', ...carColors];
+  
   const ItemSeparatorView = () => {
     return <View style={styles.itemSeperator} />
   };
@@ -66,11 +68,14 @@ const CarColor = ({ navigation, carColors }: any) => {
               size={30}
               onPress={() => navigation.goBack()}
             />
+            <Text style={styles.modalTextTitle}>Select Car Color</Text>
             <Button 
               mode="contained"
               compact={true}
-              buttonColor='#2856FF'
+              buttonColor={colors.primary}
               style={styles.button}
+              labelStyle={styles.buttonText}
+              onPress={() => navigation.navigate("FilterCarDetails")}
             >
               Save
             </Button>
@@ -79,7 +84,7 @@ const CarColor = ({ navigation, carColors }: any) => {
           <View style={{ flex:1 }}>
             <RadioButton.Group onValueChange={newVal => setRadioValue(newVal)} value={radioValue}>
               <FlatList 
-                data={carColors}
+                data={newColors}
                 ItemSeparatorComponent={ItemSeparatorView}
                 renderItem={({ item, index }) => (
                   <Item name={item} key={index} />

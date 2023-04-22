@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { SafeAreaView, ScrollView, Image, Animated, Text, StyleSheet, View } from 'react-native';
-import { fetchCars } from '../actions/fetchCars';
+import { fetchCars, getCarMakeColor } from '../actions/fetchCars';
 import { Dispatch } from 'redux';
 import { useDispatch, useSelector } from 'react-redux'
 import { Cars as Icars, CarsState } from '../types/reduxTypes'
@@ -21,10 +21,13 @@ const Search: React.FC = () => {
 
   useEffect(() => {
     dispatch(fetchCars(''));
+    setTimeout(() => {
+      dispatch(getCarMakeColor())
+    }, 500)
   },[])
 
   const cars = useSelector((state: CarsState) => state.carsData)
-  //console.log(cars)
+  console.log(cars)
 
   const styles = StyleSheet.create({ 
     container: {

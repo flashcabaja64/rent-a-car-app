@@ -3,7 +3,7 @@ let initialState = {
   cars: [],
   error: null,
   carColors: [],
-  carMake: [],
+  carMakes: [],
   filteredCars: [],
   searchedText: '',
 };
@@ -13,12 +13,15 @@ let initialState = {
   cars?: object;
   payload: {
     error?: object | null;
-    searchText?: string
+    searchText?: string;
+    make?: string;
+    color?: string;
+    years?: Array<number> | undefined
   }
  }
 
 function reducer(state = initialState, action: reducerAction) {
-  let { cars, carColors, carMake, filteredCars, searchedText } = state;
+  let { cars, carColors, carMakes, filteredCars } = state;
 
   switch(action.type) {
     case "FETCH_CARS_REQUEST":
@@ -31,7 +34,8 @@ function reducer(state = initialState, action: reducerAction) {
       return {
         ...state,
         loading: false,
-        cars: action.cars
+        cars: action.cars,
+        filteredCars: action.cars
       }
     case "FETCH_CARS_ERROR":
         return {
@@ -48,21 +52,22 @@ function reducer(state = initialState, action: reducerAction) {
         return unique
       },[]).map(car => car["car_color"])
 
-      carMake = cars.reduce((unique, o) => {
+      carMakes = cars.reduce((unique, o) => {
         if(!unique.some(obj => obj["car"] === o["car"])) {
           unique.push(o)
         }  
         return unique
       },[]).map(car => car["car"])
+      
       return {
         ...state,
         carColors,
-        carMake
+        carMakes
       }
-    case "FILTER_MAKE_MODEL":
+    case "SEARCH_MAKE_MODEL":
       filteredCars = cars.filter(car => {
-        if((car.car || car.car_model) === action.payload.searchText) {
-          return car
+        if((car['car'] || car['car_model']) === action.payload.searchText) {
+          return cars
         }
 
       })
@@ -71,6 +76,41 @@ function reducer(state = initialState, action: reducerAction) {
         loading: false,
         filteredCars
       }
+    case "FILTER_CAR_MAKE":
+      filteredCars = cars.filter(car => {
+        if(action.payload.make === 'All Makes') {
+          return filteredCars
+        } else {
+          return car['car_model'] === action.payload.make
+        }
+      })
+      return {
+        ...state,
+        loading: false,
+        filteredCars
+      }
+    case "FILTER_CAR_COLOR":
+      filteredCars = cars.filter(car => {
+        if(action.payload.make === 'All Colors') {
+          return filteredCars
+        } else {
+          return car['car_color'] === action.payload.color
+        }
+      })
+      return {
+        ...state,
+        loading: false,
+        filteredCars
+      }
+      case "FILTER_CAR_YEARS":
+        filteredCars = cars.filter(car => {
+          return car['car_model_year'] >= action.payload.years[0] && car['car_model_year'] <= action.payload.years[1]
+        })
+        return {
+          ...state,
+          loading: false,
+          filteredCars
+        }
     default:
       return state;
   }

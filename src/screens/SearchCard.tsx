@@ -4,22 +4,12 @@ import { Button, Card, Text, ActivityIndicator } from 'react-native-paper';
 import { shadow, spacing, carColors } from '../styles/theme';
 import { Cars, CarsState } from '../types/reduxTypes';
 
-import { getCarMakeColor } from '../actions/fetchCars';
-import { Dispatch } from 'redux';
-import { useDispatch, useSelector } from 'react-redux'
-
 interface CardProps {
   cars: Cars[];
   loading: boolean;
 }
 
 const SearchCard = ({ cars, loading }: CardProps) => {
-  const dispatch: Dispatch<any> = useDispatch();
-
-  useEffect(() => {
-    dispatch(getCarMakeColor());
-  },[])
-  const colors = useSelector((state: CarsState) => state.carsData.carColors);
   
   const load = false;
   const caca = [

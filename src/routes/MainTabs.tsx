@@ -91,10 +91,12 @@ const MainStack = () => {
         <Stack.Screen 
           name="CarMake" 
           component={CarMake}
+          initialParams={{ selection: 'All Makes' }}
         />
         <Stack.Screen 
           name="CarColor" 
           component={CarColor}
+          initialParams={{ selection: 'All Colors' }}
         />
       </Stack.Group>
     </Stack.Navigator>

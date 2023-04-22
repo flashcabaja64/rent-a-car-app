@@ -3,7 +3,10 @@ import {
   FETCH_CARS_SUCCESS,
   FETCH_CARS_ERROR,
   ASSEMBLE_CAR_FILTERS,
-  FILTER_MAKE_MODEL,
+  SEARCH_MAKE_MODEL,
+  FILTER_CAR_MAKE,
+  FILTER_CAR_COLOR,
+  FILTER_CAR_YEARS
 } from "./actionTypes";
 
 export function fetchCarsRequest() {
@@ -34,7 +37,28 @@ export function assembleCarFilters() {
 
 export function filterCars(searchText: string) {
   return {
-    type: FILTER_MAKE_MODEL,
+    type: SEARCH_MAKE_MODEL,
     payload: { searchText }
+  }
+}
+
+export function filterCarMake(make: string) {
+  return {
+    type: FILTER_CAR_MAKE,
+    payload: { make }
+  }
+}
+
+export function filterCarColor(color: string) {
+  return {
+    type: FILTER_CAR_COLOR,
+    payload: { color }
+  }
+}
+
+export function filterCarYears(years: Array<number>) {
+  return {
+    type: FILTER_CAR_YEARS,
+    payload: { years }
   }
 }
