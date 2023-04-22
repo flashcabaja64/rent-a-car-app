@@ -1,6 +1,7 @@
 import { TextInput, View, StyleSheet, Button, Keyboard } from 'react-native';
-import { Feather, Entypo } from "@expo/vector-icons";
-import { colors, shadow, sizes } from '../styles/theme'
+import { Feather, Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
+import { colors, shadow } from '../styles/theme';
+import { useNavigation } from '@react-navigation/native';
 
 type SearchBarProps = {
   clicked: boolean;
@@ -10,8 +11,10 @@ type SearchBarProps = {
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ clicked, setClicked, setSearchPhrase, searchPhrase }) => {
+  const navigation = useNavigation();
+  
   return (
-    <View style={[styles.container]}>
+    <View style={[styles.container, shadow.dark]}>
       <View style={
         clicked
           ? styles.searchBar__clicked
@@ -47,6 +50,14 @@ const SearchBar: React.FC<SearchBarProps> = ({ clicked, setClicked, setSearchPhr
           ></Button>
         </View>
       )}
+      {!clicked && (
+        <MaterialCommunityIcons 
+          name="filter-variant" 
+          size={35} 
+          style={styles.filterIcon}
+          onPress={() => navigation.navigate('Filter')}
+        />
+      )}
 
     </View>
   )
@@ -65,7 +76,7 @@ const styles = StyleSheet.create({
   searchBar__unclicked: {
     padding: 10,
     flexDirection: "row",
-    width: "95%",
+    width: "90%",
     backgroundColor: colors.white,
     borderRadius: 15,
     alignItems: "center",
@@ -78,6 +89,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 15,
     justifyContent: "space-evenly",
+  },
+  filterIcon: {
+    position: 'relative',
+    left: 10
   },
   input: {
     fontSize: 20,

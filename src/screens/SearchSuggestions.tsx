@@ -1,11 +1,6 @@
-import React, { useEffect, useCallback } from 'react';
-import { FlatList, View, Text, StyleSheet, ScrollView } from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import { sizes, spacing, shadow } from '../styles/theme';
-import { connect, useDispatch, useSelector } from 'react-redux'
-import { Dispatch } from 'redux';
-import { fetchCars } from '../actions/fetchCars';
-import { Cars as ICars, CarsState } from '../types/reduxTypes';
-
 const DATA = [
   {
     id: 1,
@@ -95,16 +90,6 @@ interface javascript {
 }
 
 const SearchSuggestions: React.FC = () => {
-  const dispatch: Dispatch<any> = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchCars(''));
-
-  },[])
-
-  const cars: ICars[] = useSelector((state: CarsState) => state.carsData.cars)
-  console.log(cars)
-
   return (
     <View style={styles.suggestionContainer}>
       {DATA.map((item, idx) => (
@@ -126,7 +111,6 @@ const styles = StyleSheet.create({
     borderColor: 'gray',
     width: "100%",
     flex: 1
-    //backgroundColor: 'black'
   },
   itemView: {
     fontSize: sizes.radius,
@@ -139,10 +123,4 @@ const styles = StyleSheet.create({
   }
 })
 
-const mapStateToProps = state => ({
-  cars: state.carsData.cars,
-  loading: state.carsData.loading,
-  error: state.carsData.error
-})
-
-export default connect(mapStateToProps)(SearchSuggestions);
+export default SearchSuggestions;

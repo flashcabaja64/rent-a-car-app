@@ -11,6 +11,28 @@ export const colors = {
   black: '#000',
 };
 
+export const carColors = {
+  Yellow: "#ffff00",
+  Maroon: "#800000",
+  Red: "#ff0000",
+  Violet: "#ee82ee",
+  Purple: "#800080",
+  Indigo: "#4b0082",
+  Teal: "#008080",
+  Pink: "#ffc0cb",
+  Aquamarine: "#7fffd4",
+  Green: "#008000",
+  Mauv: "#E0B0FF",
+  Turquoise: "#40e0d0",
+  Blue: "#0000ff",
+  Puce: "#CC8899",
+  Orange: "#ffa500",
+  Khaki: "#f0e68c",
+  Fuscia: "#FF00FF",
+  Goldenrod: "#daa520",
+  Crimson: "#dc143c"
+}
+
 export const shadow = {
   light: {
     shadowColor: colors.black,

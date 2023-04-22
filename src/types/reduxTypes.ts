@@ -1,4 +1,3 @@
-
 export interface Cars {
   id: number;
   car: string;
@@ -10,17 +9,19 @@ export interface Cars {
   availability: boolean;
 }
 
-export type CarsObject = {
-  [key: string]: [Cars]
-}
-
 export type CarsState = {
-  cars: CarsObject
+  carsData : {
+    carColors: string[];
+    carMake: string[];
+    cars: object[];
+    error: null | object | string;
+    loading: boolean;
+  }
 }
 
 export type CarsAction = {
   type: string;
-  cars: CarsObject
+  cars: Cars[]
 }
 
 export type DispatchType = (args: CarsAction) => CarsAction

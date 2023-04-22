@@ -1,14 +1,15 @@
 import { createBottomTabNavigator  } from "@react-navigation/bottom-tabs";
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import { MaterialIcons } from '@expo/vector-icons';
 import { RootStackParamList, RootTabsParamList } from "../types/navigation";
 
 import Search from '../components/Search';
 import Favorites from "../components/Favorites";
 import Account from "../components/Account";
+import FilterCarDetails from "../screens/FilterCarDetails";
 
 const Tab = createBottomTabNavigator<RootTabsParamList>();
-const Stack = createNativeStackNavigator<RootStackParamList>();
+const Stack = createStackNavigator<RootStackParamList>();
 
 const tabStyles = {
   height: 75,
@@ -73,8 +74,22 @@ const MainStack = () => {
         name="Main"
         component={BottomTabs}
         options={{ headerShown: false }}
-      >
-      </Stack.Screen>
+      />
+      <Stack.Group
+        screenOptions={{
+        presentation: 'transparentModal',
+        headerShown: false,
+        
+      }}>
+        <Stack.Screen 
+          name="Filter" 
+          component={FilterCarDetails}
+          options={{
+            gestureEnabled: true,
+            gestureDirection: 'vertical'
+          }}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   )
 }
