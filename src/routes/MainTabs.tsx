@@ -7,6 +7,9 @@ import Search from '../components/Search';
 import Favorites from "../components/Favorites";
 import Account from "../components/Account";
 import FilterCarDetails from "../screens/FilterCarDetails";
+import CarMake from "../screens/CarMake";
+import CarColor from "../screens/CarColor";
+import FilterModal from "../components/Modal";
 
 const Tab = createBottomTabNavigator<RootTabsParamList>();
 const Stack = createStackNavigator<RootStackParamList>();
@@ -82,12 +85,16 @@ const MainStack = () => {
         
       }}>
         <Stack.Screen 
-          name="Filter" 
+          name="FilterCarDetails" 
           component={FilterCarDetails}
-          options={{
-            gestureEnabled: true,
-            gestureDirection: 'vertical'
-          }}
+        />
+        <Stack.Screen 
+          name="CarMake" 
+          component={CarMake}
+        />
+        <Stack.Screen 
+          name="CarColor" 
+          component={CarColor}
         />
       </Stack.Group>
     </Stack.Navigator>

@@ -30,7 +30,7 @@ export function filterMakeModel(searchText: string) {
 }
 
 export function getCarMakeColor() {
-  return async (dispatch) => {
+  return dispatch => {
     dispatch(assembleCarFilters());
   }
 }

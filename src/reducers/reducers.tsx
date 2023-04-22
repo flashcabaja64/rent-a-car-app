@@ -5,7 +5,7 @@ let initialState = {
   carColors: [],
   carMake: [],
   filteredCars: [],
-  searchedText: ''
+  searchedText: '',
 };
 
  type reducerAction = {

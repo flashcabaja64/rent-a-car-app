@@ -7,5 +7,7 @@ export type RootTabsParamList = {
 
 export type RootStackParamList = {
   "Main": undefined;
-  "Filter": undefined;
+  "CarMake": undefined;
+  "CarColor": undefined;
+  "FilterCarDetails": undefined;
 };

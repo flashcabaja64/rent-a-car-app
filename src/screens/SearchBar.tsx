@@ -55,7 +55,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ clicked, setClicked, setSearchPhr
           name="filter-variant" 
           size={35} 
           style={styles.filterIcon}
-          onPress={() => navigation.navigate('Filter')}
+          onPress={() => navigation.navigate('FilterCarDetails')}
         />
       )}
 

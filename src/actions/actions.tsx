@@ -3,7 +3,7 @@ import {
   FETCH_CARS_SUCCESS,
   FETCH_CARS_ERROR,
   ASSEMBLE_CAR_FILTERS,
-  FILTER_MAKE_MODEL
+  FILTER_MAKE_MODEL,
 } from "./actionTypes";
 
 export function fetchCarsRequest() {

@@ -19,8 +19,8 @@ const SearchCard = ({ cars, loading }: CardProps) => {
   useEffect(() => {
     dispatch(getCarMakeColor());
   },[])
-  const colors = useSelector((state: CarsState) => state.carsData.carColors)
-
+  const colors = useSelector((state: CarsState) => state.carsData.carColors);
+  
   const load = false;
   const caca = [
     {
