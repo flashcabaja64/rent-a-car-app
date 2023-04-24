@@ -47,7 +47,7 @@ The objective is to build a car sharing native application with the minimum requ
 ### Feedback
 - The time given was 5 days, and I only worked only 4 days. My time spent per day ranges from 4 - 10 hours.
 - For the most part, the instructions were clear with a few assumptions discussed above.
-- Level of difficulty: 7
+- Level of difficulty: 6
 - My stance on technical screenings always comes from a place of practicality. In this scenario, a project-based assessment mimics closely to what a developer would be working on during to day-to-day position.
 
 ### Links
