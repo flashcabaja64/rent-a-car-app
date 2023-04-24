@@ -7,12 +7,9 @@ import { Cars, CarsState } from '../types/reduxTypes'
 import { connect } from 'react-redux';
 
 import SearchBar from '../screens/SearchBar';
-//import DynamicHeader from '../screens/DynamicHeader';
-import { sizes, shadow, colors } from '../styles/theme';
+import { sizes, colors } from '../styles/theme';
 import SearchSuggestions from '../screens/SearchSuggestions';
 import SearchCard from '../screens/SearchCard';
-
-//const carPerson =  require('../../assets/car_person.jpg')
 
 type SearchProps = {
   loading: boolean;

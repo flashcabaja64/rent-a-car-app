@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, TouchableOpacity} from 'react-native';
 import { Card, Text, ActivityIndicator } from 'react-native-paper';
-import { Cars, CarsState } from '../types/reduxTypes';
+import { Cars } from '../types/reduxTypes';
 import { shadow, carColors } from '../styles/theme';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationProps } from '../types/navigation';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Dispatch } from 'redux';
 import { getSingleCar, addFavoriteCar, removeFavoriteCar } from '../actions/hooks';
 import ErrorContainer from '../components/ErrorContainer';
@@ -33,9 +33,7 @@ let data = [{
 
 const SearchCard = ({ cars, loading, error }: CardProps) => {
   const navigation = useNavigation<NavigationProps>();
-  // const [clickFavorite, setClickFavorite] = useState(false)
   const dispatch: Dispatch<any> = useDispatch();
-  const favorites = useSelector((state: CarsState) => state.carsData.favorites)
 
   function addFavorite(id:number) {
     dispatch(addFavoriteCar(id))
