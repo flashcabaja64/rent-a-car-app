@@ -3,12 +3,15 @@ import {
   fetchCarsRequest, 
   fetchCarsError, 
   assembleCarFilters,
-  filterCars 
+  filterCars,
+  setFilterColorText,
+  setFilterMakeText,
+  setFilterYearsArray
 } from "./actions";
 import { DispatchType } from '../types/reduxTypes'
 
 export function fetchCars(endpoint: string) {
-  return async (dispatch) => {
+  return async (dispatch: DispatchType) => {
     dispatch(fetchCarsRequest());
 
     fetch(`https://myfakeapi.com/api/cars/${endpoint}`)
@@ -24,13 +27,31 @@ export function fetchCars(endpoint: string) {
 }
 
 export function filterMakeModel(searchText: string) {
-  return async (dispatch) => {
+  return async (dispatch: DispatchType) => {
     dispatch(filterCars(searchText));
   }
 }
 
 export function getCarMakeColor() {
-  return dispatch => {
+  return (dispatch: DispatchType) => {
     dispatch(assembleCarFilters());
+  }
+}
+
+export function setFilterColor(value: string) {
+  return (dispatch: DispatchType) => {
+    dispatch(setFilterColorText(value));
+  }
+}
+
+export function setFilterMake(value: string) {
+  return (dispatch: DispatchType) => {
+    dispatch(setFilterMakeText(value));
+  }
+}
+
+export function setFilterYear(value: Array<number>) {
+  return (dispatch: DispatchType) => {
+    dispatch(setFilterYearsArray(value));
   }
 }

@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { SafeAreaView, ScrollView, Image, Animated, Text, StyleSheet, View } from 'react-native';
-import { fetchCars, getCarMakeColor } from '../actions/fetchCars';
+import { fetchCars, getCarMakeColor } from '../actions/hooks';
 import { Dispatch } from 'redux';
 import { useDispatch, useSelector } from 'react-redux'
-import { Cars as Icars, CarsState } from '../types/reduxTypes'
+import { CarsState } from '../types/reduxTypes'
+import { connect } from 'react-redux';
 
 import SearchBar from '../screens/SearchBar';
 //import DynamicHeader from '../screens/DynamicHeader';
@@ -13,21 +14,25 @@ import SearchCard from '../screens/SearchCard';
 
 const carPerson =  require('../../assets/car_person.jpg')
 
-const Search: React.FC = () => {
+type SearchProps = {
+  loading: boolean
+}
+
+const Search = ({ loading }: SearchProps) => {
   const [clicked, setClicked] = useState<boolean>(false);
   const [searchPhrase, setSearchPhrase] = useState<string>("");
 
   const dispatch: Dispatch<any> = useDispatch();
+  const cars = useSelector((state: CarsState) => state.carsData)
+  console.log(cars)
 
   useEffect(() => {
     dispatch(fetchCars(''));
-    setTimeout(() => {
-      dispatch(getCarMakeColor())
-    }, 500)
   },[])
 
-  const cars = useSelector((state: CarsState) => state.carsData)
-  console.log(cars)
+  useEffect(() => {
+    dispatch(getCarMakeColor())
+  },[loading])
 
   const styles = StyleSheet.create({ 
     container: {
@@ -71,4 +76,8 @@ const Search: React.FC = () => {
   )
 }
 
-export default Search
+const mapStateToProps = (state:CarsState) => ({
+  loading: state.carsData.loading
+});
+
+export default connect(mapStateToProps)(Search)

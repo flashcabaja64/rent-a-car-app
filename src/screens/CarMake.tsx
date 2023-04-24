@@ -15,20 +15,37 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import styles from '../styles/filterModal.styles';
 import { colors } from '../styles/theme';
+import { CarsState } from '../types/reduxTypes'
+import { CarListItem } from '../types/types';
+import { Dispatch } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFilterMake } from '../actions/hooks'
 
 const CarMake = ({ navigation, carMakes }: any) => {
   const { width, height } = useWindowDimensions();
   const { current } = useCardAnimation();
-  const [radioValue, setRadioValue] = useState("");
+  const currentMakeVal = useSelector((state: CarsState) => state.carsData.filteredValues.make)
+  const [radioValue, setRadioValue] = useState(currentMakeVal);
+  const dispatch: Dispatch<any> = useDispatch();
+
   let newMakes = ['All Makes', ...carMakes];
   
   const ItemSeparatorView = () => {
     return <View style={styles.itemSeperator} />
   };
 
-  const Item = ({ name, index }: FlatListItem) => (
-    <RadioButton.Item label={name} value={name} key={index}/>
+  const Item = ({ name, index }: CarListItem) => (
+    <RadioButton.Item 
+      label={name} 
+      value={name} key={index} 
+      status={ radioValue === radioValue ? "checked" : "unchecked" }
+    />
   );
+
+  function dispatchFilterMakeText(newVal: string) {
+    dispatch(setFilterMake(newVal))
+    navigation.navigate("FilterCarDetails")
+  }
 
   return (
     <SafeAreaView
@@ -75,7 +92,7 @@ const CarMake = ({ navigation, carMakes }: any) => {
               buttonColor={colors.primary}
               style={styles.button}
               labelStyle={styles.buttonText}
-              onPress={() => navigation.navigate("FilterCarDetails")}
+              onPress={() => dispatchFilterMakeText(radioValue)}
             >
               Save
             </Button>
@@ -98,8 +115,9 @@ const CarMake = ({ navigation, carMakes }: any) => {
   );
 }
 
-const mapStateToProps = state => ({
-  carMakes: state.carsData.carMakes
+const mapStateToProps = (state:CarsState) => ({
+  carMakes: state.carsData.carMakes,
+  currentMakeVal: state.carsData.filteredValues.make
 });
 
 export default connect(mapStateToProps)(CarMake);

@@ -6,7 +6,10 @@ import {
   SEARCH_MAKE_MODEL,
   FILTER_CAR_MAKE,
   FILTER_CAR_COLOR,
-  FILTER_CAR_YEARS
+  FILTER_CAR_YEARS,
+  SET_FILTER_COLOR_TEXT,
+  SET_FILTER_MAKE_TEXT,
+  SET_FILTER_YEAR
 } from "./actionTypes";
 
 export function fetchCarsRequest() {
@@ -60,5 +63,26 @@ export function filterCarYears(years: Array<number>) {
   return {
     type: FILTER_CAR_YEARS,
     payload: { years }
+  }
+}
+
+export function setFilterColorText(filterColorText: string) {
+  return {
+    type: SET_FILTER_COLOR_TEXT,
+    payload: { filterColorText }
+  }
+}
+
+export function setFilterMakeText(filterMakeText: string) {
+  return {
+    type: SET_FILTER_MAKE_TEXT,
+    payload: { filterMakeText }
+  }
+}
+
+export function setFilterYearsArray(filterYears: Array<number>) {
+  return {
+    type: SET_FILTER_YEAR,
+    payload: { filterYears }
   }
 }

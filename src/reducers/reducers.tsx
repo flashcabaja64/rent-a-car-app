@@ -6,6 +6,11 @@ let initialState = {
   carMakes: [],
   filteredCars: [],
   searchedText: '',
+  filteredValues: {
+    make: 'All Makes',
+    color: 'All Colors',
+    years: [1920, Number(new Date().getFullYear())]
+  }
 };
 
  type reducerAction = {
@@ -14,14 +19,17 @@ let initialState = {
   payload: {
     error?: object | null;
     searchText?: string;
-    make?: string;
-    color?: string;
-    years?: Array<number> | undefined
+    make: string | undefined;
+    color: string;
+    years?: Array<number>;
+    filterColorText?: string | undefined;
+    filterMakeText?: string | undefined;
+    filterYears?: Array<number> | undefined;
   }
  }
 
 function reducer(state = initialState, action: reducerAction) {
-  let { cars, carColors, carMakes, filteredCars } = state;
+  let { cars, carColors, carMakes, filteredCars, filteredValues } = state;
 
   switch(action.type) {
     case "FETCH_CARS_REQUEST":
@@ -69,12 +77,29 @@ function reducer(state = initialState, action: reducerAction) {
         if((car['car'] || car['car_model']) === action.payload.searchText) {
           return cars
         }
-
       })
       return {
         ...state,
         loading: false,
         filteredCars
+      }
+    case "SET_FILTER_MAKE_TEXT":
+      filteredValues['make'] = action.payload.filterMakeText!;
+      return {
+        ...state,
+        filteredValues
+      }
+    case "SET_FILTER_COLOR_TEXT":
+      filteredValues['color'] = action.payload.filterColorText!;
+      return {
+        ...state,
+        filteredValues
+      }
+    case "SET_FILTER_YEAR":
+      filteredValues['years'] = action.payload.filterYears!;
+      return {
+        ...state,
+        filteredValues
       }
     case "FILTER_CAR_MAKE":
       filteredCars = cars.filter(car => {
@@ -104,6 +129,7 @@ function reducer(state = initialState, action: reducerAction) {
       }
       case "FILTER_CAR_YEARS":
         filteredCars = cars.filter(car => {
+          if(action.payload.years === undefined) return;
           return car['car_model_year'] >= action.payload.years[0] && car['car_model_year'] <= action.payload.years[1]
         })
         return {

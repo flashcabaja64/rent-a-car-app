@@ -8,27 +8,44 @@ import {
   FlatList,
   Text,
 } from 'react-native';
-import { useState } from 'react';
+import  { useState } from 'react';
 import { Button, RadioButton } from 'react-native-paper';
 import { useCardAnimation } from '@react-navigation/stack';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import styles from '../styles/filterModal.styles';
 import { colors } from '../styles/theme';
+import { CarsState } from '../types/reduxTypes';
+import { CarListItem } from '../types/types';
+import { Dispatch } from 'redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setFilterColor } from '../actions/hooks'
 
 const CarColor = ({ navigation, carColors }: any) => {
   const { width, height } = useWindowDimensions();
   const { current } = useCardAnimation();
-  const [radioValue, setRadioValue] = useState("");
+  const currentColorVal = useSelector((state: CarsState) => state.carsData.filteredValues.color)
+  const [radioValue, setRadioValue] = useState(currentColorVal)
+  const dispatch: Dispatch<any> = useDispatch();
   let newColors = ['All Colors', ...carColors];
   
   const ItemSeparatorView = () => {
     return <View style={styles.itemSeperator} />
   };
 
-  const Item = ({ name, index }: FlatListItem) => (
-    <RadioButton.Item label={name} value={name} key={index}/>
+  const Item = ({ name, index }: CarListItem) => (
+    <RadioButton.Item 
+      label={name} 
+      value={name} 
+      key={index}
+      status={ name === radioValue ? "checked" : "unchecked" }
+    />
   );
+
+  function dispatchFilterColorText(newVal: string) {
+    dispatch(setFilterColor(newVal));
+    navigation.navigate("FilterCarDetails")
+  }
 
   return (
     <SafeAreaView
@@ -75,14 +92,14 @@ const CarColor = ({ navigation, carColors }: any) => {
               buttonColor={colors.primary}
               style={styles.button}
               labelStyle={styles.buttonText}
-              onPress={() => navigation.navigate("FilterCarDetails")}
+              onPress={() => dispatchFilterColorText(radioValue)}
             >
               Save
             </Button>
           </View>
 
           <View style={{ flex:1 }}>
-            <RadioButton.Group onValueChange={newVal => setRadioValue(newVal)} value={radioValue}>
+            <RadioButton.Group onValueChange={(val) => setRadioValue(val)} value={radioValue}>
               <FlatList 
                 data={newColors}
                 ItemSeparatorComponent={ItemSeparatorView}
@@ -98,7 +115,7 @@ const CarColor = ({ navigation, carColors }: any) => {
   );
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state:CarsState) => ({
   carColors: state.carsData.carColors
 });
 

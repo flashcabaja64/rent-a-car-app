@@ -6,3 +6,6 @@ export const SEARCH_MAKE_MODEL: string = "SEARCH_MAKE_MODEL";
 export const FILTER_CAR_MAKE: string = "FILTER_CAR_MAKE";
 export const FILTER_CAR_COLOR: string = "FILTER_CAR_COLOR";
 export const FILTER_CAR_YEARS: string = "FILTER_CAR_YEARS"
+export const SET_FILTER_COLOR_TEXT: string = "SET_FILTER_COLOR_TEXT"
+export const SET_FILTER_MAKE_TEXT: string = "SET_FILTER_MAKE_TEXT"
+export const SET_FILTER_YEAR: string = "SET_FILTER_YEAR"

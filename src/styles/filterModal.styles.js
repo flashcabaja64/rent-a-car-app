@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { colors } from '../styles/theme';
 
 const borderWidth = 4;
 export const trackMarkStyles = StyleSheet.create({
@@ -84,6 +85,14 @@ const modalStyles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "500"
   },
+  iconContainer: {
+    flexDirection: 'row', 
+    alignItems: 'center'
+  },
+  filterValueText: {
+    color: colors.primary,
+    fontWeight: "500"
+  },
   chevronIcon: {
     justifyContent: 'center',
     alignItems: 'center'
@@ -106,7 +115,7 @@ const modalStyles = StyleSheet.create({
     height: 35,
   },
   buttonModalContainer: {
-    marginTop: 20,
+    marginTop: 5,
     justifyContent: 'center',
     alignItems: 'center' 
   },

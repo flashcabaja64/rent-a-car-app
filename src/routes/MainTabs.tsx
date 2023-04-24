@@ -9,7 +9,7 @@ import Account from "../components/Account";
 import FilterCarDetails from "../screens/FilterCarDetails";
 import CarMake from "../screens/CarMake";
 import CarColor from "../screens/CarColor";
-import FilterModal from "../components/Modal";
+import { colors } from "../styles/theme";
 
 const Tab = createBottomTabNavigator<RootTabsParamList>();
 const Stack = createStackNavigator<RootStackParamList>();
@@ -36,7 +36,7 @@ const BottomTabs = () => {
         options={{
           tabBarLabel: "Search",
           tabBarLabelPosition: "below-icon",
-          tabBarActiveTintColor: "#E32F45",
+          tabBarActiveTintColor:`${colors.primary}`,
           tabBarIcon: ({ color }) => (
             <MaterialIcons name="search" color={color} size={26} />
           )
@@ -48,7 +48,7 @@ const BottomTabs = () => {
         options={{
           tabBarLabel: "Favorites",
           tabBarLabelPosition: "below-icon",
-          tabBarActiveTintColor: "#E32F45",
+          tabBarActiveTintColor: `${colors.primary}`,
           tabBarIcon: ({ color }) => (
             <MaterialIcons name="favorite-border" color={color} size={26} />
           )
@@ -60,7 +60,7 @@ const BottomTabs = () => {
         options={{
           tabBarLabel: "Account",
           tabBarLabelPosition: "below-icon",
-          tabBarActiveTintColor: "#E32F45",
+          tabBarActiveTintColor: `${colors.primary}`,
           tabBarIcon: ({ color }) => (
             <MaterialIcons name="account-circle" color={color} size={26} />
           )
@@ -91,12 +91,10 @@ const MainStack = () => {
         <Stack.Screen 
           name="CarMake" 
           component={CarMake}
-          initialParams={{ selection: 'All Makes' }}
         />
         <Stack.Screen 
           name="CarColor" 
           component={CarColor}
-          initialParams={{ selection: 'All Colors' }}
         />
       </Stack.Group>
     </Stack.Navigator>

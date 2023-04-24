@@ -9,19 +9,26 @@ export interface Cars {
   availability: boolean;
 }
 
+type filterValuesObject = {
+  make: string;
+  color: string;
+  years: Array<number>
+}
+
 export type CarsState = {
   carsData : {
     carColors: string[];
-    carMake: string[];
-    cars: object[];
+    carMakes: string[];
+    cars: Cars[];
     error: null | object | string;
     loading: boolean;
+    filteredCars: Cars[];
+    filteredValues: filterValuesObject;
   }
 }
 
 export type CarsAction = {
   type: string;
-  cars: Cars[]
 }
 
 export type DispatchType = (args: CarsAction) => CarsAction
