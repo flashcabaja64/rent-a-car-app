@@ -52,4 +52,4 @@ The objective is to build a car sharing native application with the minimum requ
 ### Links
 - [expo QR Code](https://qr.expo.dev/expo-go?owner=flashcabaja64&slug=rent-a-car&releaseChannel=default&host=exp.host)
 - [expo link](https://expo.dev/@flashcabaja64/rent-a-car?serviceType=classic&distribution=expo-go)
-- [expo device link](exp://exp.host/@flashcabaja64/rent-a-car?release-channel=default)
+- expo device link exp://exp.host/@flashcabaja64/rent-a-car?release-channel=default
