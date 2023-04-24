@@ -36,6 +36,7 @@ The objective is to build a car sharing native application with the minimum requ
 - Some of the search components are reusing the same logic, I can instead write a Higher Order Component for reuse. 
 - Refactor and migrate some of the CSS values into a global file, and then import them in the necessary components. Some CSS styles were repeated.
 - Make a pagination logic inside redux so load times can improve when initially loading the entire 1000 list items. This can be done using react native's Flatlist **onEndReached** prop. Essentially, we can render a small set of items and when the user scrolls to the end of the list, it will call a function that displays the next batch of items. Ultimately, this can help with user experience with shorter load times.
+- The favorites page logic may be buggy, this was the last feature I worked on before publishing it to expo. Since it was not a requirement, less focused was spent developing.
 
 ### Constraints
 - Time is definitely one where if there were more of it, I can work on the items above.
