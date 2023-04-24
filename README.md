@@ -50,6 +50,11 @@ The objective is to build a car sharing native application with the minimum requ
 - Level of difficulty: 6
 - My stance on technical screenings always comes from a place of practicality. In this scenario, a project-based assessment mimics closely to what a developer would be working on during to day-to-day position.
 
+### Running Locally
+1. Fork or download repo
+2. In termal or command line, type without quotes, "npm install"
+3. To run application, "npm run start"
+
 ### Links
 - [expo QR Code](https://qr.expo.dev/expo-go?owner=flashcabaja64&slug=rent-a-car&releaseChannel=default&host=exp.host)
 - [expo link](https://expo.dev/@flashcabaja64/rent-a-car?serviceType=classic&distribution=expo-go)
