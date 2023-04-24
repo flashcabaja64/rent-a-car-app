@@ -38,13 +38,13 @@ const CarColor = ({ navigation, carColors }: any) => {
       label={name} 
       value={name} 
       key={index}
-      status={ name === radioValue ? "checked" : "unchecked" }
+      status={ name === currentColorVal ? "checked" : "unchecked" }
     />
   );
 
-  function dispatchFilterColorText(newVal: string) {
-    dispatch(setFilterColor(newVal));
-    navigation.navigate("FilterCarDetails")
+  function dispatchFilterColorText() {
+    navigation.goBack()
+    dispatch(setFilterColor(radioValue));
   }
 
   return (
@@ -92,7 +92,7 @@ const CarColor = ({ navigation, carColors }: any) => {
               buttonColor={colors.primary}
               style={styles.button}
               labelStyle={styles.buttonText}
-              onPress={() => dispatchFilterColorText(radioValue)}
+              onPress={() => dispatchFilterColorText()}
             >
               Save
             </Button>

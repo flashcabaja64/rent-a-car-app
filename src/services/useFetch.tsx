@@ -1,23 +1,23 @@
 import { useState, useEffect } from 'react';
 
-const useFetch:Function = (endpoint:string): {} => {
+const useFetch:Function = (url: string, objectKey: string): {} => {
   let active = true;
 
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [data, setData] = useState<object>();
   const [error, setError] = useState<object | null>(null);
   
   useEffect(() => {
-    if(!endpoint) return;
+    if(!url) return;
     const fetchData = async () => {
       if (active) setLoading(true);
 
       try {
-        const response = await fetch(`https://myfakeapi.com/api/cars/${endpoint}`, {
-          method: "GET"
-        });
+        const response = await fetch(url);
         const data = await response.json();
-        if (active) setData(data);
+        const dataObject = await [data[objectKey]];
+        if (active) setData(dataObject);
+
       } catch(err: any) {
         if (active) setError(err);
       } finally {
@@ -30,7 +30,7 @@ const useFetch:Function = (endpoint:string): {} => {
     return () => {
       active = false;
     }
-  }, [endpoint])
+  }, [url])
 
   return { data, loading, error }
 };

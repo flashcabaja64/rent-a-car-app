@@ -42,9 +42,9 @@ const CarMake = ({ navigation, carMakes }: any) => {
     />
   );
 
-  function dispatchFilterMakeText(newVal: string) {
-    dispatch(setFilterMake(newVal))
-    navigation.navigate("FilterCarDetails")
+  function dispatchFilterMakeText() {
+    dispatch(setFilterMake(radioValue))
+    navigation.goBack();
   }
 
   return (
@@ -92,7 +92,7 @@ const CarMake = ({ navigation, carMakes }: any) => {
               buttonColor={colors.primary}
               style={styles.button}
               labelStyle={styles.buttonText}
-              onPress={() => dispatchFilterMakeText(radioValue)}
+              onPress={() => dispatchFilterMakeText()}
             >
               Save
             </Button>
@@ -116,8 +116,7 @@ const CarMake = ({ navigation, carMakes }: any) => {
 }
 
 const mapStateToProps = (state:CarsState) => ({
-  carMakes: state.carsData.carMakes,
-  currentMakeVal: state.carsData.filteredValues.make
+  carMakes: state.carsData.carMakes
 });
 
 export default connect(mapStateToProps)(CarMake);

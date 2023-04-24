@@ -7,6 +7,7 @@ export interface Cars {
   car_vin: string;
   price: string;
   availability: boolean;
+  favorite?: boolean;
 }
 
 type filterValuesObject = {
@@ -17,13 +18,16 @@ type filterValuesObject = {
 
 export type CarsState = {
   carsData : {
+    favorites: any;
     carColors: string[];
     carMakes: string[];
     cars: Cars[];
+    car: Cars[];
     error: null | object | string;
     loading: boolean;
     filteredCars: Cars[];
     filteredValues: filterValuesObject;
+    filteredSearchCarsResults: Cars[];
   }
 }
 

@@ -2,6 +2,7 @@ import { TextInput, View, StyleSheet, Button, Keyboard } from 'react-native';
 import { Feather, Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
 import { colors, shadow } from '../styles/theme';
 import { useNavigation } from '@react-navigation/native';
+import { NavigationProps } from '../types/navigation';
 
 type SearchBarProps = {
   clicked: boolean;
@@ -11,7 +12,7 @@ type SearchBarProps = {
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ clicked, setClicked, setSearchPhrase, searchPhrase }) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProps>();
   
   return (
     <View style={[styles.container, shadow.dark]}>
@@ -31,11 +32,13 @@ const SearchBar: React.FC<SearchBarProps> = ({ clicked, setClicked, setSearchPhr
           placeholder='Search car make or model'
           onFocus={() => setClicked(true)}
           value={searchPhrase}
-          onChangeText={setSearchPhrase}
+          onChangeText={(val) => {
+            setSearchPhrase(val);
+          }}
         />
         {clicked && (
           <Entypo name="cross" size={20} color="black" style={{ paddingRight: 1 }} onPress={() => {
-              setSearchPhrase("")
+            setSearchPhrase("")
           }}/>
         )}
       </View>

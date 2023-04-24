@@ -22,7 +22,7 @@ import { CarsState } from '../types/reduxTypes';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Dispatch } from 'redux';
 import { useDispatch, useSelector } from 'react-redux'
-import { setFilterYear } from '../actions/hooks';
+import { setFilterYear, filterAllFilteredCars } from '../actions/hooks';
 
 interface FlatListItem {
   name: string;
@@ -39,9 +39,6 @@ const FilterCarDetails = ({ navigation, filteredValues }: any) => {
   let currentYear = Number(new Date().getFullYear());
 
   const dispatch: Dispatch<any> = useDispatch();
-
-
-  console.log(currentSelectedYear)
 
   const filterData = [
     { id: 1, name: 'Car Make', subtitle: 'Choose Your Car Make.', routeName: "CarMake", currentVal: filteredValues.make },
@@ -70,7 +67,8 @@ const FilterCarDetails = ({ navigation, filteredValues }: any) => {
 
   function filterAllCars() {
     navigation.goBack();
-    dispatch(setFilterYear(year))
+    dispatch(setFilterYear(year));
+    dispatch(filterAllFilteredCars())
   }
 
   return (

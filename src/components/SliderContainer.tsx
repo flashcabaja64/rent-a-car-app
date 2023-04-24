@@ -12,13 +12,12 @@ const SliderContainer = (props: {
 }) => {
   const {caption, sliderValue, trackMarks} = props;
   const [value, setValue] = useState(sliderValue);
-  let renderTrackMarkComponent: React.ReactNode;
+  let renderTrackMarkComponent:  (index: number) => JSX.Element;
 
   if (trackMarks?.length && (!Array.isArray(value) || value?.length === 1)) {
     renderTrackMarkComponent = (index: number) => {
       const currentMarkValue = trackMarks[index];
-      const currentSliderValue = (Array.isArray(value) && value[0]);
-      const style = currentMarkValue > Math.max(currentSliderValue)
+      const style = currentMarkValue > Math.max(value[0])
           ? trackMarkStyles.activeMark
           : trackMarkStyles.inactiveMark;
       return <View style={style} />;

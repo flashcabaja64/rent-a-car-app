@@ -3,10 +3,14 @@ import {
   fetchCarsRequest, 
   fetchCarsError, 
   assembleCarFilters,
-  filterCars,
+  carsSearchText,
   setFilterColorText,
   setFilterMakeText,
-  setFilterYearsArray
+  setFilterYearsArray,
+  filterAllCars,
+  getCar,
+  addFavorite,
+  removeFavorite
 } from "./actions";
 import { DispatchType } from '../types/reduxTypes'
 
@@ -26,9 +30,15 @@ export function fetchCars(endpoint: string) {
   }
 }
 
-export function filterMakeModel(searchText: string) {
+export function getSingleCar(id: number) {
+  return (dispatch: DispatchType) => {
+    dispatch(getCar(id))
+  }
+}
+
+export function searchMakeModel(searchText: string) {
   return async (dispatch: DispatchType) => {
-    dispatch(filterCars(searchText));
+    dispatch(carsSearchText(searchText));
   }
 }
 
@@ -53,5 +63,23 @@ export function setFilterMake(value: string) {
 export function setFilterYear(value: Array<number>) {
   return (dispatch: DispatchType) => {
     dispatch(setFilterYearsArray(value));
+  }
+}
+
+export function filterAllFilteredCars() {
+  return (dispatch: DispatchType) => {
+    dispatch(filterAllCars());
+  }
+}
+
+export function addFavoriteCar(id: number) {
+  return (dispatch: DispatchType) => {
+    dispatch(addFavorite(id));
+  }
+}
+
+export function removeFavoriteCar(id: number) {
+  return (dispatch: DispatchType) => {
+    dispatch(removeFavorite(id));
   }
 }

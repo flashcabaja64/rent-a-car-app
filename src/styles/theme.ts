@@ -6,13 +6,15 @@ export const colors = {
   primary: '#2856FF',
   secondary: "#9fa7ff",
   gray: '#8b8989',
+  semiGray: '#5b5b5b',
   lightGray: '#b2b2b2',
   light: '#fbfbfb',
   white: '#fff',
   black: '#000',
+  bold: "600"
 };
 
-export const carColors = {
+export const carColors: { [key:string]: string } = {
   Yellow: "#ffff00",
   Maroon: "#800000",
   Red: "#ff0000",

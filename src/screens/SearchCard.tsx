@@ -1,120 +1,116 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Button, Card, Text, ActivityIndicator } from 'react-native-paper';
-import { shadow, spacing, carColors } from '../styles/theme';
+import React, { useState } from 'react';
+import { View, TouchableOpacity} from 'react-native';
+import { Card, Text, ActivityIndicator } from 'react-native-paper';
 import { Cars, CarsState } from '../types/reduxTypes';
+import { shadow, carColors } from '../styles/theme';
+import { useNavigation } from '@react-navigation/native';
+import { NavigationProps } from '../types/navigation';
+import { useDispatch, useSelector } from 'react-redux';
+import { Dispatch } from 'redux';
+import { getSingleCar, addFavoriteCar, removeFavoriteCar } from '../actions/hooks';
+import ErrorContainer from '../components/ErrorContainer';
+import {MaterialIcons} from '@expo/vector-icons';
+import styles from '../styles/searchCard.styles';
 
 interface CardProps {
   cars: Cars[];
   loading: boolean;
+  error: null | object | undefined | string;
 }
 
-const SearchCard = ({ cars, loading }: CardProps) => {
-  
-  const load = false;
-  const caca = [
-    {
-      id: 1,
-      car: "Mitsubishi",
-      car_model: "Montero",
-      car_color: "Yellow",
-      car_model_year: 2002,
-      car_vin: "SAJWJ0FF3F8321657",
-      price: "$2814.46",
-      availability: false
-    },
-    {
-      id: 2,
-      car: "Mitsubishi",
-      car_model: "Montero",
-      car_color: "Blue",
-      car_model_year: 2002,
-      car_vin: "SAJWJ0FF3F8321657",
-      price: "$2814.46",
-      availability: false
-    },
-    {
-      id: 3,
-      car: "Mitsubishi",
-      car_model: "Montero",
-      car_color: "Green",
-      car_model_year: 2002,
-      car_vin: "SAJWJ0FF3F8321657",
-      price: "$2814.46",
-      availability: false
-    }
-  ]
+let data = [{
+  "availability": false, 
+  "car": "Mitsubishi", 
+  "car_color": "Yellow", 
+  "car_model": "Montero", 
+  "car_model_year": 2002, 
+  "car_vin": "SAJWJ0FF3F8321657", 
+  "id": 4, 
+  "favorite": true,
+  "price": "$2814.46"
+} 
+]
+
+const SearchCard = ({ cars, loading, error }: CardProps) => {
+  const navigation = useNavigation<NavigationProps>();
+  // const [clickFavorite, setClickFavorite] = useState(false)
+  const dispatch: Dispatch<any> = useDispatch();
+  const favorites = useSelector((state: CarsState) => state.carsData.favorites)
+
+  function addFavorite(id:number) {
+    dispatch(addFavoriteCar(id))
+  }
+
+  function removeFavorite(id:number) {
+    dispatch(removeFavoriteCar(id))
+  }
+
   return (
     <>
-      {load ? (
-        <ActivityIndicator animating={true} size="large" />
+      {(loading && !cars) || (error) ? (
+        <>
+          {error && <ErrorContainer />}
+          <ActivityIndicator animating={loading} style={{ flex: 1 }} size="large" />
+        </>
       ) : (
-      caca.map(item => (
-        <Card key={item.id} style={[shadow.dark, styles.cardContainer]}>
-          <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
-          <Card.Title 
-            titleVariant='titleLarge' 
-            titleStyle={styles.cardTitle}
-            title={`${item.car} ${item.car_model} ${item.car_model_year}`}
-          />
-          <View style={styles.itemSeperator} />
-          <Card.Content>
-            <View style={styles.carColorContainer}>
-              <Text variant="titleMedium" style={styles.carColorText}>Car Color:</Text>
-              <View style={{
-                  width: 20,
-                  height: 20,
-                  borderRadius: 20/2,
-                  position: 'relative',
-                  right: 50,
-                  top: 2,
-                  backgroundColor: `${carColors[item.car_color]}`
-                }} 
-                />
-              
-              <Text variant="titleMedium" style={styles.priceText}>{`${item.price}`} / day</Text>
-            </View>
-          </Card.Content>
-        </Card>
-      ))
+        cars.map(item => (
+          <TouchableOpacity 
+            onPress={() => {
+              dispatch(getSingleCar(item.id))
+              navigation.navigate('CarDetails');
+            }} 
+            key={item.id} 
+            style={[shadow.dark, styles.cardContainer]}
+          >
+            <Card>
+              <Card.Cover source={{ uri: 'https://picsum.photos/300/250' }} />
+              <TouchableOpacity style={styles.iconContainer}>
+                {
+                  (item.favorite && item.favorite == true) ? (
+                    <MaterialIcons 
+                      style={styles.favoriteIconClicked} 
+                      name="favorite" 
+                      size={25}
+                      onPress={() => removeFavorite(item.id)}
+                    />
+                  ) : (
+                    <MaterialIcons 
+                      style={styles.favoriteIcon} 
+                      name="favorite-border" 
+                      size={25}
+                      onPress={() => addFavorite(item.id)}
+                    />
+                  )
+                }
+              </TouchableOpacity>
+              <Card.Title 
+                titleVariant='titleLarge' 
+                titleStyle={styles.cardTitle}
+                title={`${item.car} ${item.car_model} ${item.car_model_year}`}
+              />
+              <View style={styles.itemSeperator} />
+              <Card.Content>
+                <View style={styles.carColorContainer}>
+                  <Text variant="titleMedium" style={styles.carColorText}>Car Color:</Text>
+                  <View style={{
+                    width: 20,
+                    height: 20,
+                    borderRadius: 20/2,
+                    position: 'relative',
+                    right: 50,
+                    top: 2,
+                    backgroundColor: `${carColors[item.car_color]}`
+                  }} 
+                  />
+                  <Text variant="titleMedium" style={styles.priceText}>{`${item.price}`} / day</Text>
+                </View>
+              </Card.Content>
+            </Card>
+          </TouchableOpacity>
+        ))
       )}
     </>
   )
 }
-
-const styles = StyleSheet.create({
-  indicator: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  cardContainer: {
-    width: "95%",
-    marginBottom: 20,
-    backgroundColor: "white",
-  },
-  cardTitle: {
-    fontWeight: '600'
-  },
-  carColorContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    marginTop: 10,
-    justifyContent: 'space-between'
-  },
-  carColorText: {
-    fontWeight: "500",
-  },
-  itemSeperator: { 
-    height: 1, 
-    width: '90%', 
-    position: 'relative',
-    left: 15,
-    backgroundColor: '#C8C8C8' 
-  },
-  priceText: {
-    fontWeight: "500"
-  }
-})
 
 export default SearchCard;

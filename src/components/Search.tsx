@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { SafeAreaView, ScrollView, Image, Animated, Text, StyleSheet, View } from 'react-native';
-import { fetchCars, getCarMakeColor } from '../actions/hooks';
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { fetchCars, getCarMakeColor, searchMakeModel } from '../actions/hooks';
 import { Dispatch } from 'redux';
-import { useDispatch, useSelector } from 'react-redux'
-import { CarsState } from '../types/reduxTypes'
+import { useDispatch } from 'react-redux'
+import { Cars, CarsState } from '../types/reduxTypes'
 import { connect } from 'react-redux';
 
 import SearchBar from '../screens/SearchBar';
@@ -12,19 +12,20 @@ import { sizes, shadow, colors } from '../styles/theme';
 import SearchSuggestions from '../screens/SearchSuggestions';
 import SearchCard from '../screens/SearchCard';
 
-const carPerson =  require('../../assets/car_person.jpg')
+//const carPerson =  require('../../assets/car_person.jpg')
 
 type SearchProps = {
-  loading: boolean
+  loading: boolean;
+  filteredCars: Cars[];
+  filteredSeachCars: Cars[];
+  error: null | object | undefined | string;
 }
 
-const Search = ({ loading }: SearchProps) => {
+const Search = ({ loading, filteredCars, filteredSeachCars, error }: SearchProps) => {
   const [clicked, setClicked] = useState<boolean>(false);
   const [searchPhrase, setSearchPhrase] = useState<string>("");
 
   const dispatch: Dispatch<any> = useDispatch();
-  const cars = useSelector((state: CarsState) => state.carsData)
-  console.log(cars)
 
   useEffect(() => {
     dispatch(fetchCars(''));
@@ -33,6 +34,12 @@ const Search = ({ loading }: SearchProps) => {
   useEffect(() => {
     dispatch(getCarMakeColor())
   },[loading])
+
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(searchMakeModel(searchPhrase.toLowerCase()))
+    }, 400)
+  }, [searchPhrase])
 
   const styles = StyleSheet.create({ 
     container: {
@@ -58,7 +65,6 @@ const Search = ({ loading }: SearchProps) => {
       flex: 1
     }
   })
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -69,15 +75,18 @@ const Search = ({ loading }: SearchProps) => {
           setSearchPhrase={setSearchPhrase}
         />
       </View>
-      <ScrollView style={styles.scrollContainer} contentContainerStyle={[styles.searchCardContainer, cars.loading && styles.flexSearchCardIndicator]}>
-        { clicked ? <SearchSuggestions /> : <SearchCard cars={cars.cars} loading={cars.loading} /> }
+      <ScrollView style={styles.scrollContainer} contentContainerStyle={[styles.searchCardContainer, loading && styles.flexSearchCardIndicator]}>
+        { clicked ? <SearchSuggestions filteredSeachCars={filteredSeachCars}/> : <SearchCard cars={filteredCars} loading={loading} error={error}/> }
       </ScrollView>
     </SafeAreaView>
   )
 }
 
 const mapStateToProps = (state:CarsState) => ({
-  loading: state.carsData.loading
+  loading: state.carsData.loading,
+  error: state.carsData.error,
+  filteredCars: state.carsData.filteredCars,
+  filteredSeachCars: state.carsData.filteredSearchCarsResults
 });
 
 export default connect(mapStateToProps)(Search)

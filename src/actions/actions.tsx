@@ -4,12 +4,16 @@ import {
   FETCH_CARS_ERROR,
   ASSEMBLE_CAR_FILTERS,
   SEARCH_MAKE_MODEL,
-  FILTER_CAR_MAKE,
-  FILTER_CAR_COLOR,
-  FILTER_CAR_YEARS,
+  // FILTER_CAR_MAKE,
+  // FILTER_CAR_COLOR,
+  // FILTER_CAR_YEARS,
   SET_FILTER_COLOR_TEXT,
   SET_FILTER_MAKE_TEXT,
-  SET_FILTER_YEAR
+  SET_FILTER_YEAR,
+  FILTER_CAR_MAKE_COLOR_YEAR,
+  GET_SINGLE_CAR,
+  ADD_FAVORITE,
+  REMOVE_FAVORITE
 } from "./actionTypes";
 
 export function fetchCarsRequest() {
@@ -38,31 +42,17 @@ export function assembleCarFilters() {
   }
 };
 
-export function filterCars(searchText: string) {
+export function carsSearchText(searchText: string) {
   return {
     type: SEARCH_MAKE_MODEL,
     payload: { searchText }
   }
 }
 
-export function filterCarMake(make: string) {
+export function getCar(id: number) {
   return {
-    type: FILTER_CAR_MAKE,
-    payload: { make }
-  }
-}
-
-export function filterCarColor(color: string) {
-  return {
-    type: FILTER_CAR_COLOR,
-    payload: { color }
-  }
-}
-
-export function filterCarYears(years: Array<number>) {
-  return {
-    type: FILTER_CAR_YEARS,
-    payload: { years }
+    type: GET_SINGLE_CAR,
+    payload: { id }
   }
 }
 
@@ -84,5 +74,25 @@ export function setFilterYearsArray(filterYears: Array<number>) {
   return {
     type: SET_FILTER_YEAR,
     payload: { filterYears }
+  }
+}
+
+export function filterAllCars() {
+  return {
+    type: FILTER_CAR_MAKE_COLOR_YEAR
+  }
+}
+
+export function addFavorite(favoriteId: number) {
+  return {
+    type: ADD_FAVORITE,
+    payload: { favoriteId }
+  }
+}
+
+export function removeFavorite(favoriteId: number) {
+  return {
+    type: REMOVE_FAVORITE,
+    payload: { favoriteId }
   }
 }

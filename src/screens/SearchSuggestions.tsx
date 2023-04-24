@@ -1,106 +1,46 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { sizes, spacing, shadow } from '../styles/theme';
-const DATA = [
-  {
-    id: 1,
-    title: 'Modern JS: A curated collection'
-  },
-  {
-    id: 2,
-    title: 'JavaScript notes for professionals'
-  },
-  {
-    id: 3,
-    title: 'JavaScript: The Good Parts'
-  },
-  {
-    id: 4,
-    title: 'JavaScript: The right way'
-  },
-  {
-    id: 5,
-    title: 'Exploring ES6'
-  },
-  {
-    id: 11,
-    title: 'JavaScript: The Good Parts'
-  },
-  {
-    id: 12,
-    title: 'JavaScript: The right way'
-  },
-  {
-    id: 13,
-    title: 'Exploring ES6'
-  },
-  {
-    id: 14,
-    title: 'JavaScript: The Good Parts'
-  },
-  {
-    id: 15,
-    title: 'JavaScript: The right way'
-  },
-  {
-    id: 21,
-    title: 'Exploring ES6'
-  },
-  {
-    id: 22,
-    title: 'JavaScript: The Good Parts'
-  },
-  {
-    id: 23,
-    title: 'JavaScript: The right way'
-  },
-  {
-    id: 24,
-    title: 'Exploring ES6'
-  },
-  {
-    id: 25,
-    title: 'JavaScript: The Good Parts'
-  },
-  {
-    id: 31,
-    title: 'JavaScript: The right way'
-  },
-  {
-    id: 32,
-    title: 'Exploring ES6'
-  },
-  {
-    id: 33,
-    title: 'JavaScript: The Good Parts'
-  },
-  {
-    id: 44,
-    title: 'JavaScript: The right way'
-  },
-  {
-    id: 55,
-    title: 'Exploring ES6'
-  }
-];
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { sizes, spacing } from '../styles/theme';
+import { Cars } from '../types/reduxTypes';
+import { NavigationProps } from '../types/navigation';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { Dispatch } from 'redux';
+import { getSingleCar } from '../actions/hooks';
 
-interface javascript {
-  id: number;
-  title: string;
+type SearchSuggestionsProps = {
+  filteredSeachCars: Cars[];
 }
 
-const SearchSuggestions: React.FC = () => {
+const SearchSuggestions = ({filteredSeachCars}: SearchSuggestionsProps) => {
+  const navigation = useNavigation<NavigationProps>();
+  const dispatch: Dispatch<any> = useDispatch();
+
   return (
-    <View style={styles.suggestionContainer}>
-      {DATA.map((item, idx) => (
-        <>
-          <Text style={styles.itemView} key={item.id}>
-            {item.title}
-          </Text>
-          <View style={styles.itemSeperator}></View>
-        </>
-      ))}
-    </View>
+    <>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>Top Search Results</Text>
+        <Text style={styles.headerText}>$ / Day</Text>
+      </View>
+      <View style={styles.suggestionContainer}>
+        {filteredSeachCars.map(item => (
+          <TouchableOpacity key={item.id} onPress={() => {
+            dispatch(getSingleCar(item.id));
+            navigation.navigate('CarDetails');
+          }}>
+            <View style={styles.header}>
+              <Text style={styles.itemView}>
+                {`${item.car} ${item.car_model} ${item.car_model_year}`}
+              </Text>
+              <Text style={styles.itemView}>
+                {item.price}
+              </Text>
+            </View>
+            <View style={styles.itemSeperator}></View>
+          </TouchableOpacity>
+        ))}
+      </View>
+    </>
   )
 }
 
@@ -112,9 +52,23 @@ const styles = StyleSheet.create({
     width: "100%",
     flex: 1
   },
+  headerText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    borderBottomWidth: 5,
+    borderBottomColor: 'black'
+  },
+  header: {
+    flexDirection: 'row',
+    width: "100%",
+    paddingLeft: 20,
+    paddingRight: 20,
+    justifyContent: 'space-between',
+  },
   itemView: {
     fontSize: sizes.radius,
-    padding: spacing.m
+    paddingTop: spacing.m,
+    paddingBottom: spacing.m
   },
   itemSeperator: {
     height: 0.5,
