@@ -52,7 +52,7 @@ The objective is to build a car sharing native application with the minimum requ
 
 ### Running Locally
 1. Fork or download repo
-2. In termal or command line, type without quotes, **"npm install"**
+2. In terminal or command line, type without quotes, **"npm install"**
 3. To run application, **"npm run start"**
 
 ### Links
