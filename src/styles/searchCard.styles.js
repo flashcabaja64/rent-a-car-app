@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     width: "95%",
     marginBottom: 20,
+    borderRadius: 10,
     backgroundColor: "white",
   },
   cardTitle: {
