@@ -11,10 +11,9 @@ The objective is to build a car sharing native application with the minimum requ
     -   At a minimum, the user must be able to filter by car make, year, and color
     -   Feel free to add range sliders for the filters (not required, but extra points)
  -   Amazing UI/UX
-    
-    -   Intuitive - is it easy to use?
-    -   Comprehensive - does the UI draw users' attention to particular focus areas?
-    -   Design - does it look nice?
+ - Intuitive - is it easy to use?
+ - Comprehensive - does the UI draw users' attention to particular focus areas?
+ - Design - does it look nice?
 #### Main Tech Stacks
  - react-dom
  - react-native
