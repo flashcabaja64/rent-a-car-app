@@ -52,8 +52,8 @@ The objective is to build a car sharing native application with the minimum requ
 
 ### Running Locally
 1. Fork or download repo
-2. In termal or command line, type without quotes, "npm install"
-3. To run application, "npm run start"
+2. In termal or command line, type without quotes, ##"npm install"##
+3. To run application, ##"npm run start"##
 
 ### Links
 - [expo QR Code](https://qr.expo.dev/expo-go?owner=flashcabaja64&slug=rent-a-car&releaseChannel=default&host=exp.host)
