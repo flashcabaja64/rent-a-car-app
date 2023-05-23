@@ -103,7 +103,7 @@ function reducer(state = initialState, action: reducerAction) {
       })
       return {
         ...state,
-        favorites,
+        ...favorites,
         filteredCars
       }
     case "REMOVE_FAVORITE":
@@ -121,7 +121,7 @@ function reducer(state = initialState, action: reducerAction) {
       })
       return {
         ...state,
-        favorites,
+        ...favorites,
         filteredCars
       }
     case "SEARCH_MAKE_MODEL":
