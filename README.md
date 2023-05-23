@@ -25,6 +25,8 @@ The objective is to build a car sharing native application with the minimum requ
 
 # Summary
 
+The "Accounts" and "Favorites" tab was added for the potentiality of the final product. Those two tabs are not functional nor does it contain any content.
+
 ### Running Locally
 1. Fork or download repo
 2. In terminal or command line, type without quotes, **"npm install"**
